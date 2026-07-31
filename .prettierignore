@@ -1,0 +1,7 @@
+.next
+bin
+**/bin*Debug/**
+coverage
+node_modules
+obj
+pnpm-lock.yaml

@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="FleetForge.Api.Tests/FleetForge.Api.Tests.csproj" />
+  <Project Path="FleetForge.Api/FleetForge.Api.csproj" />
+</Solution>

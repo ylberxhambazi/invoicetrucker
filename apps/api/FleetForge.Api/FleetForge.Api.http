@@ -1,0 +1,41 @@
+@InvoiceTrucker.Api_HostAddress = http://localhost:5050
+
+GET {{InvoiceTrucker.Api_HostAddress}}/health
+Accept: application/json
+
+###
+
+GET {{InvoiceTrucker.Api_HostAddress}}/api/dashboard
+Accept: application/json
+
+###
+
+GET {{InvoiceTrucker.Api_HostAddress}}/api/trucks?page=1&pageSize=5&search=volvo&sortBy=registrationNumber
+Accept: application/json
+
+###
+
+GET {{InvoiceTrucker.Api_HostAddress}}/api/invoices/00000000-0000-0004-0000-000000000001
+Accept: application/json
+
+###
+
+GET {{InvoiceTrucker.Api_HostAddress}}/api/reports/overview
+Accept: application/json
+
+###
+
+GET {{InvoiceTrucker.Api_HostAddress}}/api/settings
+Accept: application/json
+
+###
+
+POST {{InvoiceTrucker.Api_HostAddress}}/api/newsletter
+Content-Type: application/json
+
+{
+  "fullName": "Avery Demo",
+  "email": "avery@invoicetrucker.example",
+  "companyName": "Demo Transport Studio",
+  "fleetSize": 8
+}

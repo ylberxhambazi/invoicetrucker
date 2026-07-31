@@ -1,0 +1,12 @@
+{
+  "name": "@invoicetrucker/eslint-config",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./next": "./next.js"
+  },
+  "devDependencies": {
+    "eslint-config-next": "16.2.11"
+  }
+}

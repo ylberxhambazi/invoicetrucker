@@ -1,0 +1,95 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  frontend:
+    name: Frontend
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 10.16.1
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+      - run: pnpm typecheck
+      - run: pnpm test:web
+      - run: pnpm build:web
+        env:
+          NEXT_PUBLIC_API_URL: http://127.0.0.1:5050
+          NEXT_PUBLIC_SITE_URL: http://127.0.0.1:3000
+      - run: pnpm audit --prod --audit-level high
+
+  backend:
+    name: Backend
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 10.0.x
+      - run: dotnet restore apps/api/FleetForge.slnx
+      - run: dotnet build apps/api/FleetForge.slnx --no-restore
+      - run: dotnet test apps/api/FleetForge.slnx --no-build
+      - run: dotnet format apps/api/FleetForge.slnx --no-restore --verify-no-changes
+      - name: Audit vulnerable NuGet packages
+        run: dotnet list apps/api/FleetForge.slnx package --vulnerable --include-transitive
+
+  end-to-end:
+    name: End-to-end
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:18-alpine
+        env:
+          POSTGRES_DB: invoicetrucker
+          POSTGRES_PASSWORD: invoicetrucker_dev
+          POSTGRES_USER: invoicetrucker
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U invoicetrucker -d invoicetrucker"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+    env:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__FleetForge: Host=127.0.0.1;Port=5432;Database=invoicetrucker;Username=invoicetrucker;Password=invoicetrucker_dev
+      Cors__AllowedOrigins__0: http://127.0.0.1:3000
+      NEXT_PUBLIC_API_URL: http://127.0.0.1:5050
+      NEXT_PUBLIC_PRODUCT_URL: https://product.example
+      NEXT_PUBLIC_SITE_URL: http://127.0.0.1:3000
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 10.16.1
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: pnpm
+      - uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 10.0.x
+      - run: pnpm install --frozen-lockfile
+      - run: dotnet restore apps/api/FleetForge.slnx
+      - run: dotnet build apps/api/FleetForge.slnx --no-restore
+      - run: dotnet tool restore
+      - run: dotnet tool run dotnet-ef database update --project apps/api/FleetForge.Api --startup-project apps/api/FleetForge.Api --no-build
+      - run: pnpm --filter @invoicetrucker/web exec playwright install --with-deps chromium
+      - run: pnpm test:e2e
