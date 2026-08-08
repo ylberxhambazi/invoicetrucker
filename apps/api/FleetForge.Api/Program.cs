@@ -4,6 +4,7 @@ using FleetForge.Api.Infrastructure;
 using FleetForge.Api.Persistence;
 using FluentValidation;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Serilog;
@@ -22,6 +23,13 @@ builder.Services.Configure<RouteHandlerOptions>(options =>
     options.ThrowOnBadRequest = true);
 builder.Services.AddOpenApi();
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor
+        | ForwardedHeaders.XForwardedProto;
+    options.KnownIPNetworks.Clear();
+    options.KnownProxies.Clear();
+});
 
 var connectionString = builder.Configuration.GetConnectionString("FleetForge")
     ?? throw new InvalidOperationException(
@@ -96,6 +104,7 @@ if (app.Configuration.GetValue<bool>("Database:ApplyMigrations"))
     await dbContext.Database.MigrateAsync();
 }
 
+app.UseForwardedHeaders();
 app.UseSerilogRequestLogging();
 app.UseExceptionHandler();
 app.UseCors();
