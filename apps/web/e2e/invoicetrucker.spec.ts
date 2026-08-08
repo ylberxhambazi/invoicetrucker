@@ -49,11 +49,12 @@ test("invoice detail renders a printable fictional invoice", async ({
 
 test("newsletter registration succeeds and then reports a duplicate", async ({
   page,
-}) => {
-  const email = `playwright-${Date.now()}@invoicetrucker.example`;
+}, testInfo) => {
+  const runId = process.env.GITHUB_RUN_ID ?? process.pid;
+  const email = `playwright-${runId}-${testInfo.retry}-${testInfo.workerIndex}@invoicetrucker.example`;
   await page.goto("/");
   await page.getByLabel(/full name/i).fill("Playwright Demo");
-  await page.getByLabel(/^email/i).fill(email);
+  await page.getByLabel(/^email/i).fill(email.toUpperCase());
   await page.getByLabel(/company/i).fill("Automated Demo Company");
   await page.getByLabel(/fleet size/i).fill("4");
   await page.getByRole("button", { name: "Join Early Access" }).click();
@@ -66,9 +67,11 @@ test("newsletter registration succeeds and then reports a duplicate", async ({
   await page.getByLabel(/^email/i).fill(email);
   await page.getByRole("button", { name: "Join Early Access" }).click();
 
-  await expect(page.getByRole("alert")).toContainText(
-    "already on the early-access list",
-  );
+  await expect(
+    page
+      .getByRole("alert")
+      .filter({ hasText: "already on the early-access list" }),
+  ).toBeVisible();
 });
 
 test("mobile navigation opens and reaches the demo", async ({ page }) => {
