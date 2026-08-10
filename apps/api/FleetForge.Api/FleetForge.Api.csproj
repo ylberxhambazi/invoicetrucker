@@ -4,7 +4,16 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+    <EnableDefaultRazorGenerateItems>false</EnableDefaultRazorGenerateItems>
+    <EnableDefaultRazorComponentItems>false</EnableDefaultRazorComponentItems>
+    <RazorCompileOnBuild>false</RazorCompileOnBuild>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="*.cs;Contracts/*/*.cs;Domain/*/*.cs;Endpoints/*.cs;Infrastructure/*.cs;Persistence/*.cs;Persistence/*/*.cs;Validation/*.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.3" />

@@ -1,10 +1,9 @@
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
-COPY apps/api/FleetForge.Api/FleetForge.Api.csproj apps/api/FleetForge.Api/
+COPY apps/api/FleetForge.Api/ apps/api/FleetForge.Api/
 RUN dotnet restore apps/api/FleetForge.Api/FleetForge.Api.csproj
 
-COPY apps/api/FleetForge.Api/ apps/api/FleetForge.Api/
 RUN dotnet publish apps/api/FleetForge.Api/FleetForge.Api.csproj \
     --configuration Release \
     --no-restore \
