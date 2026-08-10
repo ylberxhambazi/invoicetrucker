@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <EnableDefaultContentItems>false</EnableDefaultContentItems>
     <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
     <EnableDefaultRazorGenerateItems>false</EnableDefaultRazorGenerateItems>
     <EnableDefaultRazorComponentItems>false</EnableDefaultRazorComponentItems>
@@ -13,6 +14,13 @@
 
   <ItemGroup>
     <Compile Include="*.cs;Contracts/*/*.cs;Domain/*/*.cs;Endpoints/*.cs;Infrastructure/*.cs;Persistence/*.cs;Persistence/*/*.cs;Validation/*.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="appsettings.json;appsettings.Development.json" />
+    <Content Include="appsettings.json;appsettings.Development.json"
+             CopyToOutputDirectory="PreserveNewest"
+             CopyToPublishDirectory="PreserveNewest" />
   </ItemGroup>
 
   <ItemGroup>
