@@ -17,3 +17,5 @@ test-results/
 .vscode/
 *.log
 .invoicetrucker/
+.vercel/
+.env.local

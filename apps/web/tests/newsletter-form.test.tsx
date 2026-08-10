@@ -17,6 +17,17 @@ afterEach(() => {
 });
 
 describe("NewsletterForm", () => {
+  it("provides a direct early-access contact email", () => {
+    render(<NewsletterForm />);
+
+    expect(
+      screen.getByRole("link", { name: "ylber.xhambazi@gmail.com" }),
+    ).toHaveAttribute(
+      "href",
+      "mailto:ylber.xhambazi@gmail.com?subject=InvoiceTrucker%20early%20access",
+    );
+  });
+
   it("submits optional fields to the real API contract and announces success", async () => {
     const request = vi.fn().mockResolvedValue(
       new Response(
