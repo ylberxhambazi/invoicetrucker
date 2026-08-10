@@ -1,10 +1,10 @@
-# fly.toml app configuration file generated for invoicetrucker on 2026-08-08T16:06:14Z
+# fly.toml app configuration file generated for invoicetrucker on 2026-08-10T06:51:35Z
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
 app = 'invoicetrucker'
-primary_region = 'ams'
+primary_region = 'fra'
 
 [build]
   dockerfile = 'apps/api/FleetForge.Api/Dockerfile'
