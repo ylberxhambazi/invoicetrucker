@@ -16,6 +16,7 @@
     "@invoicetrucker/types": "workspace:*",
     "@invoicetrucker/ui": "workspace:*",
     "@tanstack/react-query": "^5.87.1",
+    "@vercel/analytics": "^2.0.1",
     "lucide-react": "^0.544.0",
     "next": "16.2.11",
     "react": "19.2.8",
