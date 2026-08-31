@@ -212,9 +212,9 @@ export function NewsletterForm() {
         commercial information. Prefer to get in touch directly? Email{" "}
         <a
           className="font-medium text-blue-700 underline decoration-blue-300 underline-offset-2 transition-colors hover:text-blue-900"
-          href="mailto:ylber.xhambazi@gmail.com?subject=InvoiceTrucker%20early%20access"
+          href="mailto:info@invoicetrucker.com?subject=InvoiceTrucker%20early%20access"
         >
-          ylber.xhambazi@gmail.com
+          info@invoicetrucker.com
         </a>
         .
       </p>

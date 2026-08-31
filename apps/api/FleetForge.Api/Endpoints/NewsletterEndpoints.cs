@@ -1,5 +1,6 @@
 using FleetForge.Api.Contracts.Newsletter;
 using FleetForge.Api.Domain.Entities;
+using FleetForge.Api.Infrastructure;
 using FleetForge.Api.Persistence;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
@@ -28,6 +29,7 @@ public static class NewsletterEndpoints
         NewsletterRequest request,
         IValidator<NewsletterRequest> validator,
         FleetForgeDbContext dbContext,
+        NewsletterNotificationSender notificationSender,
         ILogger<Program> logger,
         CancellationToken cancellationToken)
     {
@@ -86,6 +88,18 @@ public static class NewsletterEndpoints
         logger.LogInformation(
             "Newsletter subscriber {SubscriberId} registered",
             subscriber.Id);
+
+        try
+        {
+            await notificationSender.SendAsync(subscriber, cancellationToken);
+        }
+        catch (Exception exception) when (!cancellationToken.IsCancellationRequested)
+        {
+            logger.LogError(
+                exception,
+                "Early-access notification failed for subscriber {SubscriberId}",
+                subscriber.Id);
+        }
 
         return Results.Json(
             new NewsletterResponse(

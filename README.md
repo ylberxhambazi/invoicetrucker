@@ -132,6 +132,8 @@ The frontend runs at `http://localhost:3000`; the API runs at
 | `ConnectionStrings__FleetForge` | PostgreSQL connection string; key retained for backend compatibility | see `.env.example`      |
 | `Cors__AllowedOrigins__0`       | Allowed frontend origin                                              | `http://localhost:3000` |
 | `Database__ApplyMigrations`     | Compose-only startup migration switch                                | `false`                 |
+| `EmailNotifications__ResendApiKey` | Server-only Resend key for early-access notifications             | empty                   |
+| `EmailNotifications__RecipientAddress` | Destination for early-access notifications                    | `info@invoicetrucker.com` |
 | `POSTGRES_DB`                   | Compose database name                                                | `invoicetrucker`        |
 | `POSTGRES_USER`                 | Compose database user                                                | `invoicetrucker`        |
 | `POSTGRES_PASSWORD`             | Fictional local-only Compose password                                | `invoicetrucker_dev`    |
@@ -272,7 +274,8 @@ provider. See [the deployment guide](docs/deployment.md).
 - No file download or document storage
 - Invoice print preview uses the browser print dialog
 - Demo views require the API and PostgreSQL; there is no mock-data fallback
-- Newsletter entries stay in PostgreSQL; no email provider is connected
+- Newsletter entries stay in PostgreSQL; notification delivery requires a
+  Resend API key and a verified sender domain
 
 ## Roadmap
 

@@ -21,10 +21,10 @@ describe("NewsletterForm", () => {
     render(<NewsletterForm />);
 
     expect(
-      screen.getByRole("link", { name: "ylber.xhambazi@gmail.com" }),
+      screen.getByRole("link", { name: "info@invoicetrucker.com" }),
     ).toHaveAttribute(
       "href",
-      "mailto:ylber.xhambazi@gmail.com?subject=InvoiceTrucker%20early%20access",
+      "mailto:info@invoicetrucker.com?subject=InvoiceTrucker%20early%20access",
     );
   });
 

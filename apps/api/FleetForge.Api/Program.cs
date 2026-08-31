@@ -23,6 +23,10 @@ builder.Services.Configure<RouteHandlerOptions>(options =>
     options.ThrowOnBadRequest = true);
 builder.Services.AddOpenApi();
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();
+builder.Services.Configure<NewsletterNotificationOptions>(
+    builder.Configuration.GetSection("EmailNotifications"));
+builder.Services.AddHttpClient<NewsletterNotificationSender>(client =>
+    client.BaseAddress = new Uri("https://api.resend.com/"));
 builder.Services.Configure<ForwardedHeadersOptions>(options =>
 {
     options.ForwardedHeaders = ForwardedHeaders.XForwardedFor

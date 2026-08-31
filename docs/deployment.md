@@ -27,7 +27,15 @@ ConnectionStrings__FleetForge=<Supabase Npgsql connection string>
 Frontend__BaseUrl=https://invoicetrucker.example.com
 Cors__AllowedOrigins__0=https://invoicetrucker.example.com
 Database__ApplyMigrations=false
+EmailNotifications__ResendApiKey=<Resend server-side API key>
+EmailNotifications__RecipientAddress=info@invoicetrucker.com
+EmailNotifications__FromAddress=InvoiceTrucker Early Access <early-access@invoicetrucker.com>
 ```
+
+Early-access registrations are committed to PostgreSQL before a notification
+is sent. Verify `invoicetrucker.com` in Resend and keep the API key only in Fly
+secrets. A notification failure is logged without turning a saved registration
+into a failed or duplicate browser submission.
 
 For Supabase's session pooler, the Npgsql value has this exact shape (replace
 every angle-bracket placeholder and do not commit the result):
