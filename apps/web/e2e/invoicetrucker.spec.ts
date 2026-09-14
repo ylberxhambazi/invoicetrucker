@@ -1,18 +1,21 @@
 import { expect, test } from "@playwright/test";
 
-test("landing page loads and shows the configured related product link", async ({
+test("landing page presents the buyer journey and product demo", async ({
   page,
 }) => {
   await page.goto("/");
 
   await expect(
     page.getByRole("heading", {
-      name: "Run your transport business from one place.",
+      name: "Stop managing trucking invoices across spreadsheets, emails, and folders.",
     }),
   ).toBeVisible();
   await expect(
-    page.getByRole("link", { name: "View Full Product" }),
-  ).toHaveAttribute("rel", "noopener noreferrer");
+    page.getByRole("link", { name: "Explore the Product" }),
+  ).toHaveAttribute("href", "/demo");
+  await expect(
+    page.getByRole("heading", { name: "Built for small trucking fleets." }),
+  ).toBeVisible();
 });
 
 test("demo dashboard loads PostgreSQL-backed API data", async ({ page }) => {
@@ -74,7 +77,9 @@ test("newsletter registration succeeds and then reports a duplicate", async ({
   ).toBeVisible();
 });
 
-test("mobile navigation opens and reaches the demo", async ({ page }) => {
+test("mobile navigation opens and reaches the product demo", async ({
+  page,
+}) => {
   await page.setViewportSize({ height: 844, width: 390 });
   await page.goto("/");
 
@@ -83,6 +88,6 @@ test("mobile navigation opens and reaches the demo", async ({ page }) => {
     name: "Mobile navigation",
   });
   await expect(navigation).toBeVisible();
-  await navigation.getByRole("link", { name: "View Live Demo" }).click();
+  await navigation.getByRole("link", { name: "Explore Product" }).click();
   await expect(page).toHaveURL(/\/demo$/);
 });

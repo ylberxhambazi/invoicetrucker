@@ -9,22 +9,22 @@ describe("HomePage", () => {
 
     expect(
       screen.getByRole("heading", {
-        name: /run your transport business from one place/i,
+        name: /stop managing trucking invoices across spreadsheets/i,
       }),
     ).toBeInTheDocument();
     expect(
       screen.getByRole("heading", {
-        name: /everything needed to keep the business moving/i,
+        name: /from completed load to paid invoice/i,
       }),
     ).toBeInTheDocument();
     expect(
       screen.getByRole("heading", {
-        name: /modern technology, chosen for maintainability/i,
+        name: /see the business without digging through spreadsheets/i,
       }),
     ).toBeInTheDocument();
     expect(
       screen.getByRole("heading", {
-        name: /production experience beyond this public showcase/i,
+        name: /your trucks shouldn't be easier to track than your money/i,
       }),
     ).toBeInTheDocument();
   });
@@ -33,10 +33,26 @@ describe("HomePage", () => {
     render(<HomePage />);
 
     expect(
-      screen.getAllByRole("link", { name: /view live demo/i })[0],
-    ).toHaveAttribute("href", "/demo");
+      screen.getAllByRole("link", { name: /get early access/i })[0],
+    ).toHaveAttribute("href", "#early-access");
     expect(
-      screen.getAllByRole("link", { name: /explore on github/i })[0],
+      screen.getAllByRole("link", { name: /see how it works/i })[0],
+    ).toHaveAttribute("href", "#how-it-works");
+    expect(
+      screen.getByRole("link", { name: /explore the product/i }),
+    ).toHaveAttribute("href", "/demo");
+  });
+
+  it("keeps developer messaging out of the primary buyer journey", () => {
+    render(<HomePage />);
+
+    expect(
+      screen.queryByRole("heading", {
+        name: /technology|engineering showcase/i,
+      }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: /invoicetrucker on github/i }),
     ).toHaveAttribute(
       "href",
       "https://github.com/ylberxhambazi/InvoiceTrucker",

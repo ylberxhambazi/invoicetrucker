@@ -8,14 +8,10 @@ import { Brand } from "./brand";
 
 const navigation = [
   { href: "#product", label: "Product" },
-  { href: "#features", label: "Features" },
-  { href: "#demo", label: "Demo" },
-  { href: "#technology", label: "Technology" },
-  {
-    href: "https://github.com/ylberxhambazi/InvoiceTrucker",
-    label: "GitHub",
-    external: true,
-  },
+  { href: "#how-it-works", label: "How It Works" },
+  { href: "#small-fleets", label: "For Small Fleets" },
+  { href: "#faq", label: "FAQ" },
+  { href: "#about", label: "About" },
 ];
 
 export function SiteHeader() {
@@ -44,8 +40,6 @@ export function SiteHeader() {
                 <Link
                   className="rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-50 hover:text-slate-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
                   href={item.href}
-                  rel={item.external ? "noreferrer" : undefined}
-                  target={item.external ? "_blank" : undefined}
                 >
                   {item.label}
                 </Link>
@@ -57,15 +51,15 @@ export function SiteHeader() {
         <div className="hidden items-center gap-3 lg:flex">
           <Link
             className="rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 transition-colors hover:text-slate-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
-            href="#early-access"
+            href="/demo"
           >
-            Early Access
+            Explore Product
           </Link>
           <Link
             className="inline-flex min-h-10 items-center rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-blue-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
-            href="/demo"
+            href="#early-access"
           >
-            View Live Demo
+            Get Early Access
           </Link>
         </div>
 
@@ -98,8 +92,6 @@ export function SiteHeader() {
                   className="block rounded-xl px-3 py-3 text-base font-medium text-slate-700 hover:bg-slate-50 hover:text-slate-950 focus-visible:outline-2 focus-visible:outline-blue-600"
                   href={item.href}
                   onClick={() => setIsOpen(false)}
-                  rel={item.external ? "noreferrer" : undefined}
-                  target={item.external ? "_blank" : undefined}
                 >
                   {item.label}
                 </Link>
@@ -108,17 +100,17 @@ export function SiteHeader() {
             <li className="mt-3 grid gap-3 sm:grid-cols-2">
               <Link
                 className="inline-flex min-h-11 items-center justify-center rounded-xl border border-slate-300 bg-white px-4 text-sm font-semibold text-slate-900"
-                href="#early-access"
-                onClick={() => setIsOpen(false)}
-              >
-                Join Early Access
-              </Link>
-              <Link
-                className="inline-flex min-h-11 items-center justify-center rounded-xl bg-blue-600 px-4 text-sm font-semibold text-white"
                 href="/demo"
                 onClick={() => setIsOpen(false)}
               >
-                View Live Demo
+                Explore Product
+              </Link>
+              <Link
+                className="inline-flex min-h-11 items-center justify-center rounded-xl bg-blue-600 px-4 text-sm font-semibold text-white"
+                href="#early-access"
+                onClick={() => setIsOpen(false)}
+              >
+                Get Early Access
               </Link>
             </li>
           </ul>

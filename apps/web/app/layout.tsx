@@ -19,36 +19,37 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
-  category: "technology",
+  category: "business",
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   ),
   title: {
-    default: "InvoiceTrucker — Fleet management, made clear",
+    default:
+      "InvoiceTrucker | Invoicing & Fleet Management for Small Trucking Fleets",
     template: "%s | InvoiceTrucker",
   },
   description:
-    "A fictional open-source fleet operations portfolio project with a read-only Next.js demo, ASP.NET Core API, and PostgreSQL data.",
+    "Manage trucking invoices, customers, fleet information, paperwork and payments in one place. Built for small fleets ready to move beyond spreadsheets.",
   keywords: [
     "fleet management",
-    "Next.js portfolio",
-    "ASP.NET Core",
-    "PostgreSQL",
-    "open source",
+    "trucking invoicing",
+    "small trucking fleet",
+    "invoice management",
   ],
   openGraph: {
     description:
-      "A fictional open-source fleet operations portfolio demonstration built with Next.js, ASP.NET Core, and PostgreSQL.",
+      "Manage trucking invoices, customers, fleet information, paperwork and payments in one place. Built for small fleets ready to move beyond spreadsheets.",
     images: [
       {
         alt: "InvoiceTrucker fleet management dashboard",
         height: 907,
-        url: "/og.png",
+        url: "/og-buyer.png",
         width: 1734,
       },
     ],
     siteName: "InvoiceTrucker",
-    title: "Run your transport business from one place.",
+    title:
+      "InvoiceTrucker | Invoicing & Fleet Management for Small Trucking Fleets",
     type: "website",
   },
   robots: {
@@ -58,9 +59,10 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     description:
-      "A fictional open-source fleet operations portfolio demonstration.",
-    images: ["/og.png"],
-    title: "Run your transport business from one place.",
+      "Manage trucking invoices, customers, fleet information, paperwork and payments in one place.",
+    images: ["/og-buyer.png"],
+    title:
+      "InvoiceTrucker | Invoicing & Fleet Management for Small Trucking Fleets",
   },
 };
 

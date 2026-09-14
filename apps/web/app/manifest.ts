@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     background_color: "#f8fafc",
     description:
-      "Fictional open-source fleet operations portfolio demonstration.",
+      "Invoicing and fleet management for owner-operators and small trucking fleets.",
     display: "standalone",
     icons: [
       {

@@ -42,7 +42,7 @@ const views = [
       ["Aster Retail", "Leon Haas", "2 active", "€26,180"],
       ["Cobalt Works", "Eva Korhonen", "1 active", "€18,940"],
     ],
-    title: "Clients",
+    title: "Customers",
   },
   {
     columns: ["Invoice", "Client", "Amount", "Status"],
@@ -121,7 +121,7 @@ export function ProductShowcase() {
               {activeView.title}
             </p>
             <p className="mt-1 text-sm text-slate-500">
-              Live operational records across your business.
+              A connected view of the records across your business.
             </p>
           </div>
           <div className="flex items-center gap-2">
@@ -188,7 +188,7 @@ export function ProductShowcase() {
         </div>
 
         <div className="flex items-center justify-between border-t border-slate-200 px-5 py-4 text-xs text-slate-500 sm:px-7">
-          <span>Showing 3 of 15 fictional records</span>
+          <span>Showing 3 of 15 records</span>
           <span>1 / 5</span>
         </div>
       </div>

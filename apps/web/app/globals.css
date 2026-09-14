@@ -483,6 +483,171 @@ button {
   color: #2563eb;
 }
 
+.problem-card,
+.benefit-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  background: white;
+  padding: 1.4rem;
+  box-shadow: 0 12px 35px -28px rgb(15 23 42 / 0.35);
+}
+
+.problem-number {
+  display: grid;
+  width: 2.4rem;
+  height: 2.4rem;
+  place-items: center;
+  border: 1px solid #dbeafe;
+  border-radius: 0.7rem;
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.cash-flow-section,
+.final-cta-section {
+  position: relative;
+  overflow: hidden;
+  background: #0f172a;
+}
+
+.cash-flow-section::after,
+.final-cta-section::after {
+  position: absolute;
+  top: -12rem;
+  right: -8rem;
+  width: 28rem;
+  height: 28rem;
+  border-radius: 50%;
+  background: rgb(37 99 235 / 0.22);
+  content: "";
+  filter: blur(75px);
+  pointer-events: none;
+}
+
+.cash-flow-section > div {
+  position: relative;
+  z-index: 1;
+}
+
+.workflow-strip {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.55rem;
+  max-width: 68rem;
+}
+
+.workflow-stage {
+  display: flex;
+  min-height: 3rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #bfdbfe;
+  border-radius: 0.8rem;
+  background: white;
+  color: #1e40af;
+  font-size: 0.82rem;
+  font-weight: 700;
+  box-shadow: 0 8px 24px -20px rgb(37 99 235 / 0.5);
+}
+
+.workflow-arrow {
+  margin: 0 auto;
+  color: #94a3b8;
+  transform: rotate(90deg);
+}
+
+.comparison-table-wrap {
+  overflow: hidden;
+  border: 1px solid #cbd5e1;
+  border-radius: 1rem;
+  background: white;
+  box-shadow: 0 18px 50px -38px rgb(15 23 42 / 0.4);
+}
+
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.comparison-table th,
+.comparison-table td {
+  width: 50%;
+  padding: 1rem;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.comparison-table th {
+  background: #f1f5f9;
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.comparison-table th:last-child {
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.comparison-table td {
+  border-top: 1px solid #e2e8f0;
+  color: #64748b;
+}
+
+.comparison-table td:last-child {
+  display: table-cell;
+  color: #334155;
+  font-weight: 600;
+}
+
+.comparison-table td:last-child svg {
+  display: inline;
+  margin-right: 0.55rem;
+  color: #16a34a;
+  vertical-align: -0.2rem;
+}
+
+.why-panel {
+  overflow: hidden;
+  border-radius: 1.5rem;
+  background:
+    radial-gradient(circle at 85% 20%, rgb(37 99 235 / 0.28), transparent 34%),
+    #0f172a;
+  padding: 2rem;
+  box-shadow: 0 24px 60px -36px rgb(15 23 42 / 0.7);
+}
+
+.faq-item {
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  background: white;
+  padding: 0 1.25rem;
+}
+
+.faq-item summary {
+  cursor: pointer;
+  padding: 1.15rem 2rem 1.15rem 0;
+  color: #0f172a;
+  font-size: 0.95rem;
+  font-weight: 650;
+}
+
+.faq-item summary:focus-visible {
+  border-radius: 0.35rem;
+  outline: 2px solid #2563eb;
+  outline-offset: 3px;
+}
+
+.faq-item p {
+  max-width: 48rem;
+  padding: 0 0 1.25rem;
+  color: #64748b;
+  font-size: 0.875rem;
+  line-height: 1.65;
+}
+
 .showcase-shell {
   overflow: hidden;
   border: 1px solid #cbd5e1;
@@ -795,6 +960,29 @@ button {
 }
 
 @media (min-width: 640px) {
+  .workflow-strip {
+    grid-template-columns: repeat(9, minmax(0, auto));
+    align-items: center;
+  }
+
+  .workflow-stage {
+    padding: 0 1.1rem;
+  }
+
+  .workflow-arrow {
+    transform: none;
+  }
+
+  .comparison-table th,
+  .comparison-table td {
+    padding: 1rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .why-panel {
+    padding: 3rem;
+  }
+
   .dashboard-frame {
     min-height: 415px;
   }

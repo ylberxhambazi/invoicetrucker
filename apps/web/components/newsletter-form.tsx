@@ -208,8 +208,8 @@ export function NewsletterForm() {
       </button>
 
       <p className="newsletter-privacy">
-        Fictional portfolio project updates only. Do not submit confidential or
-        commercial information. Prefer to get in touch directly? Email{" "}
+        Early-access requests only. Do not submit confidential or commercial
+        information. Prefer to get in touch directly? Email{" "}
         <a
           className="font-medium text-blue-700 underline decoration-blue-300 underline-offset-2 transition-colors hover:text-blue-900"
           href="mailto:info@invoicetrucker.com?subject=InvoiceTrucker%20early%20access"

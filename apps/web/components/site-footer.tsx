@@ -8,23 +8,23 @@ const footerGroups = [
   {
     links: [
       { href: "#product", label: "Product" },
-      { href: "#features", label: "Features" },
-      { href: "/demo", label: "Live demo" },
+      { href: "#how-it-works", label: "How it works" },
+      { href: "/demo", label: "Product demo" },
       { href: "#early-access", label: "Early access" },
     ],
     title: "Product",
   },
   {
     links: [
-      { href: "#technology", label: "Technology stack" },
+      { href: "#small-fleets", label: "For small fleets" },
+      { href: "#faq", label: "FAQ" },
+      { href: "#about", label: "About" },
       {
         href: "https://github.com/ylberxhambazi/InvoiceTrucker",
         label: "GitHub",
       },
-      { href: "#technology", label: "Architecture" },
-      { href: "#early-access", label: "Project updates" },
     ],
-    title: "Project",
+    title: "Company",
   },
 ];
 
@@ -35,13 +35,12 @@ export function SiteFooter() {
         <div className="max-w-md">
           <Brand />
           <p className="mt-5 text-sm leading-6 text-slate-500">
-            A fictional fleet-management SaaS showcase demonstrating thoughtful
-            product design, frontend architecture, API engineering, and database
-            integration.
+            Invoicing and fleet management built to help owner-operators and
+            small trucking fleets move beyond spreadsheets.
           </p>
           <p className="mt-4 text-xs leading-5 text-slate-400">
-            Demo environment — fictional data only. Not intended for storing
-            real business information.
+            The public product preview uses demonstration data and is not
+            intended for storing real business information.
           </p>
         </div>
 
@@ -72,7 +71,7 @@ export function SiteFooter() {
 
       <div className="border-t border-slate-200">
         <Container className="flex flex-col gap-4 py-6 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
-          <p>© 2026 InvoiceTrucker. Fictional portfolio project.</p>
+          <p>© 2026 InvoiceTrucker.</p>
           <div className="flex items-center gap-2">
             <Link
               aria-label="InvoiceTrucker on GitHub"
