@@ -18,6 +18,9 @@ export const metadata: Metadata = {
   applicationName: "InvoiceTrucker",
   alternates: {
     canonical: "/",
+    types: {
+      "application/rss+xml": "/rss.xml",
+    },
   },
   category: "business",
   metadataBase: new URL(

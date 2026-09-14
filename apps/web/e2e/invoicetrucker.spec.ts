@@ -18,6 +18,34 @@ test("landing page presents the buyer journey and product demo", async ({
   ).toBeVisible();
 });
 
+test("resources hub opens the published trucking invoice guide", async ({
+  page,
+}) => {
+  await page.goto("/resources");
+
+  await expect(
+    page.getByRole("heading", {
+      name: "Practical resources for running a clearer trucking business.",
+    }),
+  ).toBeVisible();
+  await page
+    .getByRole("link", {
+      exact: true,
+      name: "What Should a Trucking Invoice Include?",
+    })
+    .click();
+  await expect(page).toHaveURL(
+    /\/resources\/what-should-a-trucking-invoice-include$/,
+  );
+  await expect(
+    page.getByRole("heading", {
+      level: 1,
+      name: "What Should a Trucking Invoice Include?",
+    }),
+  ).toBeVisible();
+  await expect(page.getByRole("table").first()).toBeVisible();
+});
+
 test("demo dashboard loads PostgreSQL-backed API data", async ({ page }) => {
   await page.goto("/demo");
 

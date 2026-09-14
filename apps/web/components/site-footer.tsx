@@ -7,18 +7,19 @@ import { Brand } from "./brand";
 const footerGroups = [
   {
     links: [
-      { href: "#product", label: "Product" },
-      { href: "#how-it-works", label: "How it works" },
+      { href: "/#product", label: "Product" },
+      { href: "/#how-it-works", label: "How it works" },
       { href: "/demo", label: "Product demo" },
-      { href: "#early-access", label: "Early access" },
+      { href: "/#early-access", label: "Early access" },
     ],
     title: "Product",
   },
   {
     links: [
-      { href: "#small-fleets", label: "For small fleets" },
-      { href: "#faq", label: "FAQ" },
-      { href: "#about", label: "About" },
+      { href: "/resources", label: "Resources" },
+      { href: "/#small-fleets", label: "For small fleets" },
+      { href: "/#faq", label: "FAQ" },
+      { href: "/#about", label: "About" },
       {
         href: "https://github.com/ylberxhambazi/InvoiceTrucker",
         label: "GitHub",

@@ -7,11 +7,12 @@ import { useEffect, useState } from "react";
 import { Brand } from "./brand";
 
 const navigation = [
-  { href: "#product", label: "Product" },
-  { href: "#how-it-works", label: "How It Works" },
-  { href: "#small-fleets", label: "For Small Fleets" },
-  { href: "#faq", label: "FAQ" },
-  { href: "#about", label: "About" },
+  { href: "/#product", label: "Product" },
+  { href: "/#how-it-works", label: "How It Works" },
+  { href: "/#small-fleets", label: "For Small Fleets" },
+  { href: "/resources", label: "Resources" },
+  { href: "/#faq", label: "FAQ" },
+  { href: "/#about", label: "About" },
 ];
 
 export function SiteHeader() {
@@ -57,7 +58,7 @@ export function SiteHeader() {
           </Link>
           <Link
             className="inline-flex min-h-10 items-center rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-blue-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
-            href="#early-access"
+            href="/#early-access"
           >
             Get Early Access
           </Link>
@@ -107,7 +108,7 @@ export function SiteHeader() {
               </Link>
               <Link
                 className="inline-flex min-h-11 items-center justify-center rounded-xl bg-blue-600 px-4 text-sm font-semibold text-white"
-                href="#early-access"
+                href="/#early-access"
                 onClick={() => setIsOpen(false)}
               >
                 Get Early Access

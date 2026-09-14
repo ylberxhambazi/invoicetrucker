@@ -33,11 +33,15 @@ describe("HomePage", () => {
     render(<HomePage />);
 
     expect(
-      screen.getAllByRole("link", { name: /get early access/i })[0],
-    ).toHaveAttribute("href", "#early-access");
+      screen
+        .getAllByRole("link", { name: /get early access/i })
+        .some((link) => link.getAttribute("href") === "#early-access"),
+    ).toBe(true);
     expect(
-      screen.getAllByRole("link", { name: /see how it works/i })[0],
-    ).toHaveAttribute("href", "#how-it-works");
+      screen
+        .getAllByRole("link", { name: /see how it works/i })
+        .some((link) => link.getAttribute("href") === "#how-it-works"),
+    ).toBe(true);
     expect(
       screen.getByRole("link", { name: /explore the product/i }),
     ).toHaveAttribute("href", "/demo");
