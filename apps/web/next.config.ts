@@ -1,15 +1,15 @@
 import type { NextConfig } from "next";
-import { fileURLToPath } from "node:url";
 
 const nextConfig: NextConfig = {
   allowedDevOrigins:
     process.env.NODE_ENV === "production"
       ? undefined
       : ["127.0.0.1", "localhost"],
-  output: "standalone",
-  outputFileTracingRoot: fileURLToPath(new URL("../..", import.meta.url)),
+
   reactStrictMode: true,
+
   transpilePackages: ["@invoicetrucker/types", "@invoicetrucker/ui"],
+
   async headers() {
     return [
       {
@@ -17,7 +17,10 @@ const nextConfig: NextConfig = {
         headers: [
           { key: "X-Content-Type-Options", value: "nosniff" },
           { key: "X-Frame-Options", value: "DENY" },
-          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          {
+            key: "Referrer-Policy",
+            value: "strict-origin-when-cross-origin",
+          },
         ],
       },
     ];
