@@ -18,7 +18,7 @@ const articleSlug = "what-should-a-trucking-invoice-include";
 
 describe("resource content system", () => {
   it("loads the repository article and renders the resources hub", () => {
-    expect(getPublishedResources()).toHaveLength(1);
+    expect(getPublishedResources().length).toBeGreaterThanOrEqual(3);
 
     render(<ResourcesPage />);
 
@@ -63,7 +63,15 @@ describe("resource content system", () => {
       params: Promise.resolve({ slug: articleSlug }),
     });
 
-    expect(generateStaticParams()).toEqual([{ slug: articleSlug }]);
+    const params = generateStaticParams();
+
+    expect(params).toEqual(
+      expect.arrayContaining([
+        { slug: "how-to-create-a-trucking-invoice" },
+        { slug: "trucking-invoice-template" },
+        { slug: "what-should-a-trucking-invoice-include" },
+      ])
+    );
     expect(metadata.title).toBe("What Should a Trucking Invoice Include?");
     expect(metadata.description).toMatch(/practical checklist/i);
     expect(metadata.alternates).toEqual({
