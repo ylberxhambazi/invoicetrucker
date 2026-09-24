@@ -90,16 +90,22 @@ export default function ResourcesPage() {
 
         <section className="py-20 sm:py-26">
           <Container>
-            {populatedCategories.map((category) => (
-              <div id={categoryId(category)} key={category}>
+            {populatedCategories.map((category, index) => (
+              <div
+                id={categoryId(category)}
+                key={category}
+                className={index === 0 ? "" : "mt-20 sm:mt-24"}
+              >
                 <div className="max-w-2xl">
                   <p className="text-sm font-semibold uppercase tracking-[0.16em] text-blue-600">
                     Latest guides
                   </p>
+
                   <h2 className="mt-3 text-3xl font-semibold tracking-[-0.035em] text-slate-950 sm:text-4xl">
                     {category}
                   </h2>
                 </div>
+
                 <div className="mt-9 grid gap-6 lg:grid-cols-2">
                   {articles
                     .filter((article) => article.category === category)
