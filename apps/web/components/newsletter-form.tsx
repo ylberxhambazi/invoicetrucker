@@ -5,6 +5,7 @@ import type {
   NewsletterResponse,
 } from "@invoicetrucker/types";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -208,8 +209,10 @@ export function NewsletterForm() {
       </button>
 
       <p className="newsletter-privacy">
-        Early-access requests only. Do not submit confidential or commercial
-        information. Prefer to get in touch directly? Email{" "}
+        By joining, you ask us to contact you about early access and acknowledge
+        the <Link href="/legal/privacy">Privacy Policy</Link>. Do not submit
+        confidential or commercial information. Prefer to get in touch directly?
+        Email{" "}
         <a
           className="font-medium text-blue-700 underline decoration-blue-300 underline-offset-2 transition-colors hover:text-blue-900"
           href="mailto:info@invoicetrucker.com?subject=InvoiceTrucker%20early%20access"

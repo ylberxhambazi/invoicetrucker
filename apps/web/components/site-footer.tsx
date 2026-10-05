@@ -20,19 +20,26 @@ const footerGroups = [
       { href: "/#small-fleets", label: "For small fleets" },
       { href: "/#faq", label: "FAQ" },
       { href: "/#about", label: "About" },
-      {
-        href: "https://github.com/ylberxhambazi/InvoiceTrucker",
-        label: "GitHub",
-      },
     ],
     title: "Company",
+  },
+  {
+    links: [
+      { href: "/legal/privacy", label: "Privacy" },
+      { href: "/legal/terms", label: "Terms" },
+      { href: "/legal/cookies", label: "Cookies" },
+      { href: "/legal/subprocessors", label: "Subprocessors" },
+      { href: "/legal/dpa", label: "DPA" },
+      { href: "/legal", label: "Legal" },
+    ],
+    title: "Legal",
   },
 ];
 
 export function SiteFooter() {
   return (
     <footer className="border-t border-slate-200 bg-white">
-      <Container className="grid gap-10 py-12 md:grid-cols-[1.5fr_1fr_1fr] lg:py-16">
+      <Container className="grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr] lg:py-16">
         <div className="max-w-md">
           <Brand />
           <p className="mt-5 text-sm leading-6 text-slate-500">

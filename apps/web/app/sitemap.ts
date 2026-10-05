@@ -18,6 +18,16 @@ const routes = [
   "/resources",
 ];
 
+const legalRoutes = [
+  "/legal",
+  "/legal/privacy",
+  "/legal/terms",
+  "/legal/cookies",
+  "/legal/subprocessors",
+  "/legal/dpa",
+  "/legal/legal-notice",
+];
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = routes.map((route) => ({
     changeFrequency: route === "" ? "monthly" : "weekly",
@@ -34,5 +44,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }),
   );
 
-  return [...staticRoutes, ...resources];
+  const legal: MetadataRoute.Sitemap = legalRoutes.map((route) => ({
+    changeFrequency: "yearly",
+    priority: route === "/legal" ? 0.4 : 0.3,
+    url: `${siteUrl}${route}`,
+  }));
+
+  return [...staticRoutes, ...resources, ...legal];
 }
