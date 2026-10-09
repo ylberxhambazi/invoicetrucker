@@ -27,16 +27,31 @@ export default function PrivacyPage() {
 
       <section>
         <h2>Information we process</h2>
-        <p>The current public service may process:</p>
+        <p>InvoiceTrucker may process:</p>
         <ul>
           <li>
             Early-access information you submit: full name, email address and,
             if provided, company name and fleet size.
           </li>
           <li>
+            Account and company information, including user and tenant profiles,
+            authentication details, roles, and account settings.
+          </li>
+          <li>
+            Business records you enter or generate, including clients, trucks,
+            drivers, articles, invoice groups, invoices, invoice items,
+            payments, and related company, financial, document, AI, country, and
+            VAT settings.
+          </li>
+          <li>
+            Subscription and billing metadata received from Stripe, such as
+            customer, subscription, plan, status, and billing-event details.
+          </li>
+          <li>
             Basic application activity and technical information, such as page
             views, browser or device information, IP-derived information, and
-            server logs used to operate, secure, and understand the service.
+            server, security, and audit-event logs used to operate, secure, and
+            understand the service.
           </li>
           <li>
             Messages and other information you choose to send when requesting
@@ -45,14 +60,9 @@ export default function PrivacyPage() {
         </ul>
         <p>
           The public product preview contains demonstration business records. It
-          does not currently provide accounts, editing, or file uploads and
+          remains separate from the account-enabled production application and
           should not be used to submit real customer, driver, invoice, or
           document information.
-        </p>
-        <p>
-          Before account features are made available, this policy will need to
-          be updated to describe the account, authentication, profile, and
-          business information actually processed by that service.
         </p>
       </section>
 
@@ -61,6 +71,8 @@ export default function PrivacyPage() {
         <p>We use information as needed to:</p>
         <ul>
           <li>provide and operate the service;</li>
+          <li>authenticate users and administer company accounts;</li>
+          <li>process subscriptions and maintain billing records;</li>
           <li>manage early-access requests and contact applicants;</li>
           <li>send service and transactional email;</li>
           <li>maintain security, prevent abuse, and diagnose problems;</li>
@@ -96,6 +108,7 @@ export default function PrivacyPage() {
           </li>
           <li>Fly.io for backend hosting;</li>
           <li>Supabase for the hosted PostgreSQL database;</li>
+          <li>Stripe for subscription billing and payment processing;</li>
           <li>Resend for transactional and early-access notification email;</li>
           <li>
             Google and Microsoft as identity providers when their sign-in
@@ -103,9 +116,8 @@ export default function PrivacyPage() {
           </li>
         </ul>
         <p>
-          The current public repository does not contain the Google or Microsoft
-          sign-in implementation. Their production status and the exact account
-          data exchanged must be confirmed before account launch. See the{" "}
+          Google and Microsoft process information under their own terms when a
+          user chooses the corresponding sign-in option. See the{" "}
           <a href="/legal/subprocessors">Subprocessors page</a> for provider
           links and further detail.
         </p>
@@ -125,15 +137,68 @@ export default function PrivacyPage() {
       <section>
         <h2>Retention and deletion</h2>
         <p>
-          We retain information for as long as reasonably necessary to provide
-          the service, maintain legitimate business records, comply with legal
-          obligations, resolve disputes, and enforce agreements.
+          Operational and business data is retained while an account is active.
+          Security logs are retained for 90 days, and audit logs are retained
+          for 365 days. Expired refresh tokens, password-reset tokens, and OAuth
+          login codes are cleaned up automatically.
         </p>
         <p>
-          The current product does not define fixed retention periods or offer
-          automated account deletion. You may request deletion of early-access
-          or support information by emailing us. Some information may be
-          retained where required or permitted by applicable law.
+          Only the company owner may request account deletion, and recent
+          authentication is required. Once deletion is requested, normal
+          application access is restricted immediately, active sessions and
+          refresh tokens are revoked, and existing access tokens are rejected
+          through session-version checks. A 30-day grace period then applies.
+          During that period, the owner may export company data or cancel the
+          deletion request.
+        </p>
+        <p>
+          If the account has an active Stripe subscription, it is scheduled to
+          cancel at the end of its current billing period rather than cancelled
+          immediately. If Stripe is temporarily unavailable, account access
+          remains restricted and cancellation is retried through the durable
+          billing process. Final deletion does not occur until the grace period
+          has ended and Stripe has confirmed the required subscription
+          cancellation.
+        </p>
+        <p>
+          If deletion is cancelled while the subscription is still active and it
+          was scheduled for cancellation only because of the deletion flow,
+          billing may be restored. If the subscription has already ended, the
+          owner may need to select a paid plan again.
+        </p>
+        <p>
+          Final deletion removes tenant data and local Stripe metadata. Stripe
+          may retain its own records under its policies and legal obligations,
+          and a non-identifying tenant tombstone may remain in InvoiceTrucker.
+          Deleted data may also remain temporarily in Supabase-managed backups
+          until the provider&apos;s normal backup rotation expires;
+          InvoiceTrucker cannot directly delete individual records from those
+          backups.
+        </p>
+        <p>
+          Customers are responsible for exporting and retaining any business,
+          invoice, accounting, or tax records they are legally required to keep
+          before deleting their account. Other information may be retained where
+          required or permitted by applicable law.
+        </p>
+      </section>
+
+      <section>
+        <h2>Data export</h2>
+        <p>
+          During the deletion grace period, the company owner may download a
+          machine-readable ZIP export containing the tenant and company profile,
+          users, clients, trucks and drivers, articles and invoice groups,
+          invoices and invoice items, payments, company, financial,
+          invoice-document, AI, country, and VAT settings, subscription
+          metadata, and audit-event metadata.
+        </p>
+        <p>
+          The export excludes password hashes, refresh tokens, password-reset
+          token hashes, OAuth login-code hashes, OAuth provider identifiers,
+          encrypted AI credentials, raw Stripe webhook payloads, internal
+          security records, and embedded or generated document binaries where
+          they are not applicable.
         </p>
       </section>
 
@@ -167,8 +232,10 @@ export default function PrivacyPage() {
         <h2>Security</h2>
         <p>
           We use reasonable technical and organizational safeguards designed to
-          protect information. No internet transmission or storage system can be
-          guaranteed to be completely secure.
+          protect information. These include revoking active sessions when
+          deletion is requested and automatically cleaning up expired
+          authentication tokens and login codes. No internet transmission or
+          storage system can be guaranteed to be completely secure.
         </p>
       </section>
 

@@ -10,6 +10,16 @@ const nextConfig: NextConfig = {
 
   transpilePackages: ["@invoicetrucker/types", "@invoicetrucker/ui"],
 
+  async redirects() {
+    return [
+      {
+        destination: "/legal/privacy",
+        permanent: true,
+        source: "/privacy",
+      },
+    ];
+  },
+
   async headers() {
     return [
       {

@@ -61,13 +61,11 @@ export default function CookiesPage() {
       <section>
         <h2>Authentication and provider storage</h2>
         <p>
-          The owner has identified custom authentication plus Google and
-          Microsoft sign-in for the account-enabled product, but those flows are
-          not present in this repository. Before they are launched, this notice
-          must be updated with the confirmed cookie names, purposes, providers,
-          and durations. Google or Microsoft may also use their own
-          provider-controlled cookies or storage when a user visits their
-          sign-in pages.
+          The separate account-enabled production application uses custom
+          authentication and may offer Google or Microsoft sign-in. This public
+          marketing site does not set those application authentication cookies.
+          Google or Microsoft may use their own provider-controlled cookies or
+          storage when a user visits their sign-in pages.
         </p>
       </section>
 
@@ -77,8 +75,8 @@ export default function CookiesPage() {
           Repository inspection found no advertising cookies, marketing pixels,
           or browser-storage-based tracking. For that reason, InvoiceTrucker
           does not currently display a cookie consent banner. This should be
-          reviewed before adding authentication, embedded content, marketing
-          tags, or new analytics tools.
+          reviewed before adding embedded content, marketing tags, or new
+          analytics tools to this public site.
         </p>
         <p>
           InvoiceTrucker does not currently use advertising cookies or marketing

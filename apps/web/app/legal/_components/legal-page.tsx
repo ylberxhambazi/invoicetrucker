@@ -41,7 +41,7 @@ export function LegalPage({
               {description}
             </p>
             <p className="mt-4 text-sm text-slate-500">
-              Last updated: October 5, 2026
+              Last updated: October 9, 2026
             </p>
           </Container>
         </header>

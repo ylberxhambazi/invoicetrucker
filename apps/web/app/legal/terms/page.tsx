@@ -38,11 +38,10 @@ export default function TermsPage() {
       <section>
         <h2>3. Accounts</h2>
         <p>
-          Account access is not currently offered in this public product
-          preview. When accounts become available, you will be responsible for
+          The public product preview is separate from the account-enabled
+          production application. When using an account, you are responsible for
           accurate registration information, protecting your credentials, and
-          activity under your account. Account terms will be updated before
-          launch.
+          activity under your account.
         </p>
       </section>
 
@@ -99,10 +98,10 @@ export default function TermsPage() {
       <section>
         <h2>8. Fees and subscriptions</h2>
         <p>
-          The public preview is currently offered without a paid subscription.
-          If paid plans become available, applicable fees, billing intervals,
-          renewal terms, and taxes will be displayed before purchase. We will
-          not invent or apply a price that was not presented to you.
+          The public preview does not require a paid subscription. Paid plans in
+          the production application are processed through Stripe. Applicable
+          fees, billing intervals, renewal terms, and taxes are displayed before
+          purchase.
         </p>
       </section>
 
@@ -123,6 +122,12 @@ export default function TermsPage() {
           use, non-payment under future paid plans, or material breach of these
           terms. Data handling after termination is described in the Privacy
           Policy and, where applicable, a signed DPA.
+        </p>
+        <p>
+          Before requesting account deletion, you are responsible for exporting
+          any business, invoice, accounting, or tax records you are legally
+          required to retain. The Privacy Policy describes the 30-day deletion
+          grace period and related subscription-cancellation process.
         </p>
       </section>
 

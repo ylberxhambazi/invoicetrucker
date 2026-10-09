@@ -7,7 +7,9 @@ import CookiesPage, {
 import DpaPage from "@/app/legal/dpa/page";
 import LegalNoticePage from "@/app/legal/legal-notice/page";
 import LegalHubPage, { metadata as legalMetadata } from "@/app/legal/page";
-import PrivacyPage from "@/app/legal/privacy/page";
+import PrivacyPage, {
+  metadata as privacyMetadata,
+} from "@/app/legal/privacy/page";
 import SubprocessorsPage from "@/app/legal/subprocessors/page";
 import TermsPage from "@/app/legal/terms/page";
 import { SiteFooter } from "@/components/site-footer";
@@ -50,7 +52,7 @@ describe("legal pages", () => {
     unmount();
   });
 
-  it("uses canonical metadata for the legal hub and cookie notice", () => {
+  it("uses canonical metadata for the legal hub, privacy policy, and cookie notice", () => {
     expect(legalMetadata).toMatchObject({
       alternates: { canonical: "/legal" },
       title: "Legal & Privacy",
@@ -59,6 +61,25 @@ describe("legal pages", () => {
       alternates: { canonical: "/legal/cookies" },
       title: "Cookie & Storage Notice",
     });
+    expect(privacyMetadata).toMatchObject({
+      alternates: { canonical: "/legal/privacy" },
+      title: "Privacy Policy",
+    });
+  });
+
+  it("describes the implemented deletion, export, and retention lifecycle", () => {
+    render(<PrivacyPage />);
+
+    expect(screen.getByText(/30-day grace period/i)).toBeVisible();
+    expect(
+      screen.getByText(/security logs are retained for 90 days/i),
+    ).toBeVisible();
+    expect(
+      screen.getByText(/audit logs are retained for 365 days/i),
+    ).toBeVisible();
+    expect(screen.getByRole("heading", { name: "Data export" })).toBeVisible();
+    expect(screen.getByText(/Supabase-managed backups/i)).toBeVisible();
+    expect(screen.getByText(/Stripe has confirmed/i)).toBeVisible();
   });
 
   it("exposes all requested legal links in the public footer", () => {

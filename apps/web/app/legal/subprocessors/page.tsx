@@ -28,8 +28,17 @@ const providers = [
     category: "Early-access records and application database records",
     href: "https://supabase.com/privacy",
     name: "Supabase",
-    notes: "Hosted PostgreSQL; project region requires owner confirmation",
+    notes:
+      "Hosted PostgreSQL; project region requires owner confirmation; managed backups follow provider rotation",
     purpose: "Managed database infrastructure",
+  },
+  {
+    category: "Billing contact, customer, subscription, and payment metadata",
+    href: "https://stripe.com/privacy",
+    name: "Stripe",
+    notes:
+      "Subscription cancellation is confirmed before final tenant deletion; Stripe retains records under its own policies",
+    purpose: "Subscription billing and payment processing",
   },
   {
     category: "Recipient details and email content",
@@ -42,24 +51,22 @@ const providers = [
     category: "Authentication identifiers and profile details",
     href: "https://policies.google.com/privacy",
     name: "Google",
-    notes:
-      "Owner-identified identity provider; live integration requires confirmation",
-    purpose: "Sign-in when account access is available",
+    notes: "Processes data when a user chooses Google sign-in",
+    purpose: "Optional account sign-in",
   },
   {
     category: "Authentication identifiers and profile details",
     href: "https://privacy.microsoft.com/en-us/privacystatement",
     name: "Microsoft",
-    notes:
-      "Owner-identified identity provider; live integration requires confirmation",
-    purpose: "Sign-in when account access is available",
+    notes: "Processes data when a user chooses Microsoft sign-in",
+    purpose: "Optional account sign-in",
   },
 ] as const;
 
 export default function SubprocessorsPage() {
   return (
     <LegalPage
-      description="These providers help deliver InvoiceTrucker or have been identified for the account-enabled service."
+      description="These providers help deliver InvoiceTrucker and its account-enabled service."
       title="Subprocessors"
     >
       <section>
@@ -67,9 +74,8 @@ export default function SubprocessorsPage() {
         <p>
           A provider acts as a subprocessor only to the extent it processes
           personal data on InvoiceTrucker&apos;s behalf. Google and Microsoft
-          are included because the operator identified them as sign-in
-          providers; their integration is not present in this public repository
-          and must be verified before account launch.
+          are included because they may process data when a user chooses the
+          corresponding sign-in option.
         </p>
         <div className="legal-table-wrap legal-table-wide">
           <table>

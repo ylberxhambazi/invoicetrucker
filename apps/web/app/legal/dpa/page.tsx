@@ -44,8 +44,8 @@ export default function DpaPage() {
         <p>
           Expected data may include business contact, customer, driver, vehicle,
           invoice, expense, and document-reference information. The actual
-          account-enabled product and any file-upload processing must be
-          confirmed before this DPA is signed.
+          categories processed depend on the features the customer chooses to
+          use.
         </p>
       </section>
 
@@ -98,11 +98,14 @@ export default function DpaPage() {
         <h2>7. Return and deletion</h2>
         <p>
           Following termination and on the customer&apos;s request,
-          InvoiceTrucker will return or delete customer personal data within a
-          reasonable period, unless retention is required by law or maintained
-          temporarily in protected backups. Product-level export and deletion
-          workflows, timeframes, and backup behavior must be finalized before
-          paid launch.
+          InvoiceTrucker provides an owner-only export and deletion workflow. An
+          account deletion request restricts normal access immediately and
+          begins a 30-day grace period during which the owner may export data or
+          cancel deletion. Final deletion occurs after that period and after any
+          required Stripe subscription cancellation is confirmed. Data may
+          remain temporarily in Supabase-managed backups until normal provider
+          rotation expires, and a non-identifying tenant tombstone may remain.
+          Other retention required by applicable law is unaffected.
         </p>
       </section>
 
