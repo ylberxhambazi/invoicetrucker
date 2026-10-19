@@ -4,19 +4,7 @@ import { getPublishedResources } from "@/lib/resources";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
-const routes = [
-  "",
-  "/demo",
-  "/demo/trucks",
-  "/demo/drivers",
-  "/demo/clients",
-  "/demo/invoices",
-  "/demo/expenses",
-  "/demo/reports",
-  "/demo/documents",
-  "/demo/settings",
-  "/resources",
-];
+const routes = ["", "/resources"];
 
 const legalRoutes = [
   "/legal",
