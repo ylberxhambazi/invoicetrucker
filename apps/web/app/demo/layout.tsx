@@ -7,6 +7,8 @@ export const metadata: Metadata = {
   title: "Read-only demo",
   description:
     "Explore the fictional InvoiceTrucker fleet operations portfolio demo.",
+  alternates: { canonical: null },
+  robots: { index: false, follow: true }
 };
 
 export default function DemoLayout({
