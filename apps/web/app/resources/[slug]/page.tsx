@@ -27,6 +27,20 @@ function jsonLd(value: object) {
   return JSON.stringify(value).replace(/</g, "\\u003c");
 }
 
+function toStructuredDate(value?: string) {
+  if (!value) return undefined;
+
+  const normalized = /^\d{4}-\d{2}-\d{2}$/.test(value)
+    ? `${value}T00:00:00.000Z`
+    : value;
+
+  const date = new Date(normalized);
+
+  return Number.isNaN(date.getTime())
+    ? undefined
+    : date.toISOString();
+}
+
 export const dynamicParams = false;
 
 export function generateStaticParams() {
@@ -83,9 +97,10 @@ export default async function ResourceArticlePage({
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
+    url: articleUrl,
     author: { "@type": "Organization", name: article.author },
-    dateModified: article.updatedAt ?? article.publishedAt,
-    datePublished: article.publishedAt,
+    dateModified: toStructuredDate(article.updatedAt ?? article.publishedAt),
+    datePublished: toStructuredDate(article.publishedAt),
     description: article.description,
     headline: article.title,
     image: [image],
