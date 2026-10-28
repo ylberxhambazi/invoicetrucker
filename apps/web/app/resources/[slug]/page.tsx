@@ -98,7 +98,7 @@ export default async function ResourceArticlePage({
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     url: articleUrl,
-    author: { "@type": "Organization", name: article.author },
+    author: { "@type": "Organization", name: article.author, url: absoluteUrl("/") },
     dateModified: toStructuredDate(article.updatedAt ?? article.publishedAt),
     datePublished: toStructuredDate(article.publishedAt),
     description: article.description,
