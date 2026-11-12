@@ -13,7 +13,7 @@ tags:
   - CMR consignment note
   - road freight invoicing
 author: "InvoiceTrucker"
-draft: false
+draft: true
 ---
 
 # Transport Invoice Requirements in the EU

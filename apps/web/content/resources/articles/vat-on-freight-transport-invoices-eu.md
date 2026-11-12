@@ -13,7 +13,7 @@ tags:
   - freight invoice
   - road freight invoicing
 author: "InvoiceTrucker"
-draft: false
+draft: true
 ---
 
 # VAT on Freight Transport Invoices in the EU: B2B, Reverse Charge and Common Exceptions
