@@ -5,6 +5,7 @@ slug: "how-to-track-unpaid-trucking-invoices"
 publishedAt: "2026-10-25"
 updatedAt: "2026-10-25"
 category: "Fleet Operations"
+region: "US"
 tags:
   - unpaid trucking invoices
   - overdue trucking invoice

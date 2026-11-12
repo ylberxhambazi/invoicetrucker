@@ -5,6 +5,7 @@ slug: "bill-of-lading-vs-invoice"
 publishedAt: "2026-09-21"
 updatedAt: "2026-09-21"
 category: "Trucking Paperwork"
+region: "US"
 tags:
   - bill of lading
   - trucking invoice

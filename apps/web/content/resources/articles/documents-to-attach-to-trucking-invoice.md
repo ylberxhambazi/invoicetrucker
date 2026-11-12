@@ -5,6 +5,7 @@ slug: "documents-to-attach-to-trucking-invoice"
 publishedAt: "2026-10-15"
 updatedAt: "2026-10-15"
 category: "Trucking Paperwork"
+region: "US"
 tags:
   - trucking invoice documents
   - proof of delivery

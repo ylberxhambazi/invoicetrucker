@@ -5,6 +5,7 @@ slug: "what-should-a-trucking-invoice-include"
 publishedAt: "2026-09-14"
 updatedAt: "2026-09-14"
 category: "Trucking Invoicing"
+region: "US"
 tags:
   - trucking invoices
   - freight invoices

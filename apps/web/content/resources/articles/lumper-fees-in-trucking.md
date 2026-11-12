@@ -5,6 +5,7 @@ slug: "lumper-fees-in-trucking"
 publishedAt: "2026-10-24"
 updatedAt: "2026-10-24"
 category: "Trucking Paperwork"
+region: "US"
 tags:
   - lumper fees trucking
   - lumper receipt

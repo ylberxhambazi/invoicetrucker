@@ -5,6 +5,7 @@ slug: "detention-pay-in-trucking"
 publishedAt: "2026-10-22"
 updatedAt: "2026-10-22"
 category: "Trucking Invoicing"
+region: "US"
 tags:
   - detention pay trucking
   - detention charges

@@ -6,6 +6,7 @@ slug: "how-to-create-a-trucking-invoice"
 publishedAt: "2026-09-14"
 updatedAt: "2026-09-14"
 category: "Trucking Invoicing"
+region: "US"
 tags:
     - trucking invoices
     - freight billing

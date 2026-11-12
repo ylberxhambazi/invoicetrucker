@@ -5,6 +5,7 @@ slug: "rate-confirmation-vs-invoice"
 publishedAt: "2026-10-09"
 updatedAt: "2026-10-09"
 category: "Trucking Paperwork"
+region: "US"
 tags:
   - rate confirmation
   - trucking invoice

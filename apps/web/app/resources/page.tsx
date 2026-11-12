@@ -2,14 +2,10 @@ import type { Metadata } from "next";
 
 import { Container } from "@invoicetrucker/ui";
 
-import { ResourceCard } from "@/components/resource-card";
+import { ResourceBrowser } from "@/components/resource-browser";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import {
-  categoryId,
-  getPublishedResources,
-  resourceCategories,
-} from "@/lib/resources";
+import { getPublishedResources, resourceCategories } from "@/lib/resources";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/resources" },
@@ -34,9 +30,10 @@ export const metadata: Metadata = {
 
 export default function ResourcesPage() {
   const articles = getPublishedResources();
-  const populatedCategories = resourceCategories.filter((category) =>
-    articles.some((article) => article.category === category),
-  );
+  const articleSummaries = articles.map(({ content, ...article }) => {
+    void content;
+    return article;
+  });
 
   return (
     <>
@@ -61,62 +58,10 @@ export default function ResourcesPage() {
           </Container>
         </section>
 
-        <section
-          className="border-y border-slate-200 bg-white py-8"
-          aria-labelledby="browse-categories"
-        >
-          <Container>
-            <h2 className="sr-only" id="browse-categories">
-              Browse resource categories
-            </h2>
-            <nav aria-label="Resource categories">
-              <ul className="resource-category-list">
-                {resourceCategories.map((category) => {
-                  const populated = populatedCategories.includes(category);
-                  return (
-                    <li key={category}>
-                      {populated ? (
-                        <a href={`#${categoryId(category)}`}>{category}</a>
-                      ) : (
-                        <span>{category}</span>
-                      )}
-                    </li>
-                  );
-                })}
-              </ul>
-            </nav>
-          </Container>
-        </section>
-
-        <section className="py-20 sm:py-26">
-          <Container>
-            {populatedCategories.map((category, index) => (
-              <div
-                id={categoryId(category)}
-                key={category}
-                className={index === 0 ? "" : "mt-20 sm:mt-24"}
-              >
-                <div className="max-w-2xl">
-                  <p className="text-sm font-semibold uppercase tracking-[0.16em] text-blue-600">
-                    Latest guides
-                  </p>
-
-                  <h2 className="mt-3 text-3xl font-semibold tracking-[-0.035em] text-slate-950 sm:text-4xl">
-                    {category}
-                  </h2>
-                </div>
-
-                <div className="mt-9 grid gap-6 lg:grid-cols-2">
-                  {articles
-                    .filter((article) => article.category === category)
-                    .map((article) => (
-                      <ResourceCard article={article} key={article.slug} />
-                    ))}
-                </div>
-              </div>
-            ))}
-          </Container>
-        </section>
+        <ResourceBrowser
+          articles={articleSummaries}
+          categories={resourceCategories}
+        />
       </main>
       <SiteFooter />
     </>

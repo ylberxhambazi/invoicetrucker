@@ -828,6 +828,43 @@ button {
   scrollbar-width: thin;
 }
 
+.resource-region-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.resource-region-list button {
+  min-height: 2.5rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 999px;
+  padding: 0.5rem 1rem;
+  background: white;
+  color: #475569;
+  font-size: 0.82rem;
+  font-weight: 650;
+  transition:
+    border-color 150ms ease,
+    background-color 150ms ease,
+    color 150ms ease;
+}
+
+.resource-region-list button:hover {
+  border-color: #93c5fd;
+  color: #1d4ed8;
+}
+
+.resource-region-list button[aria-pressed="true"] {
+  border-color: #2563eb;
+  background: #2563eb;
+  color: white;
+}
+
+.resource-region-list button:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 3px;
+}
+
 .resource-category-list a,
 .resource-category-list span {
   display: inline-flex;
@@ -895,11 +932,30 @@ button {
   padding: 1.5rem;
 }
 
+.resource-card-taxonomy {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55rem;
+}
+
 .resource-card-category {
   color: #2563eb;
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.resource-card-region {
+  border: 1px solid #e2e8f0;
+  border-radius: 999px;
+  padding: 0.15rem 0.45rem;
+  color: #64748b;
+  font-size: 0.65rem;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  line-height: 1.3;
   text-transform: uppercase;
 }
 

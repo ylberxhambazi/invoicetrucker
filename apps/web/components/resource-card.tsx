@@ -2,9 +2,14 @@ import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { formatResourceDate, type ResourceArticle } from "@/lib/resources";
+import {
+  formatResourceDate,
+  type ResourceSummary,
+} from "@/lib/resource-model";
 
-export function ResourceCard({ article }: { article: ResourceArticle }) {
+const regionLabels = { EU: "EU", Global: "General", US: "US" } as const;
+
+export function ResourceCard({ article }: { article: ResourceSummary }) {
   return (
     <article className="resource-card">
       {article.featuredImage ? (
@@ -18,7 +23,12 @@ export function ResourceCard({ article }: { article: ResourceArticle }) {
         </div>
       ) : null}
       <div className="resource-card-content">
-        <p className="resource-card-category">{article.category}</p>
+        <div className="resource-card-taxonomy">
+          <p className="resource-card-category">{article.category}</p>
+          <span className="resource-card-region">
+            {regionLabels[article.region]}
+          </span>
+        </div>
         <h3>
           <Link href={`/resources/${article.slug}`}>{article.title}</Link>
         </h3>

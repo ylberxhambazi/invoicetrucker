@@ -5,6 +5,7 @@ slug: "owner-operator-trucking-invoice"
 publishedAt: "2026-10-06"
 updatedAt: "2026-10-06"
 category: "Trucking Invoicing"
+region: "US"
 tags:
   - owner operator trucking invoice
   - trucking invoices

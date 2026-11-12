@@ -1,33 +1,24 @@
 import fs from "node:fs";
 import path from "node:path";
 
-export const resourceCategories = [
-  "Trucking Invoicing",
-  "Trucking Paperwork",
-  "Fleet Operations",
-  "Moving Beyond Spreadsheets",
-  "Guides",
-  "Comparisons",
-  "Templates",
-] as const;
+import {
+  type ResourceArticle,
+  type ResourceCategory,
+  type ResourceRegion,
+  resourceCategories,
+  resourceRegions,
+} from "@/lib/resource-model";
 
-export type ResourceCategory = (typeof resourceCategories)[number];
-
-export interface ResourceArticle {
-  author: string;
-  canonical?: string;
-  category: ResourceCategory;
-  content: string;
-  description: string;
-  draft: boolean;
-  featuredImage?: string;
-  publishedAt: string;
-  readingTime: number;
-  slug: string;
-  tags: string[];
-  title: string;
-  updatedAt?: string;
-}
+export {
+  categoryId,
+  formatResourceDate,
+  type ResourceArticle,
+  type ResourceCategory,
+  type ResourceRegion,
+  type ResourceSummary,
+  resourceCategories,
+  resourceRegions,
+} from "@/lib/resource-model";
 
 type FrontmatterValue = boolean | string | string[];
 
@@ -136,6 +127,7 @@ export function calculateReadingTime(content: string) {
 export function parseResourceSource(source: string): ResourceArticle {
   const { content, data } = parseFrontmatter(source);
   const category = requiredString(data, "category");
+  const region = optionalString(data, "region") ?? "Global";
   const slug = requiredString(data, "slug");
   const publishedAt = validDate(
     requiredString(data, "publishedAt"),
@@ -145,6 +137,12 @@ export function parseResourceSource(source: string): ResourceArticle {
 
   if (!resourceCategories.includes(category as ResourceCategory)) {
     throw new Error(`Unknown resource category "${category}".`);
+  }
+
+  if (!resourceRegions.includes(region as ResourceRegion)) {
+    throw new Error(
+      `Unknown resource region "${region}". Expected US, EU, or Global.`,
+    );
   }
 
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) {
@@ -177,6 +175,7 @@ export function parseResourceSource(source: string): ResourceArticle {
     featuredImage: optionalString(data, "featuredImage"),
     publishedAt,
     readingTime: calculateReadingTime(content),
+    region: region as ResourceRegion,
     slug,
     tags,
     title: requiredString(data, "title"),
@@ -218,6 +217,7 @@ export function getRelatedResources(current: ResourceArticle, limit = 3) {
     .map((article) => ({
       article,
       categoryMatch: Number(article.category === current.category),
+      regionMatch: Number(article.region === current.region),
       sharedTags: article.tags.filter((tag) => current.tags.includes(tag))
         .length,
     }))
@@ -225,21 +225,9 @@ export function getRelatedResources(current: ResourceArticle, limit = 3) {
       (left, right) =>
         right.categoryMatch - left.categoryMatch ||
         right.sharedTags - left.sharedTags ||
+        right.regionMatch - left.regionMatch ||
         right.article.publishedAt.localeCompare(left.article.publishedAt),
     )
     .slice(0, limit)
     .map(({ article }) => article);
-}
-
-export function formatResourceDate(date: string) {
-  return new Intl.DateTimeFormat("en-US", {
-    day: "numeric",
-    month: "long",
-    timeZone: "UTC",
-    year: "numeric",
-  }).format(new Date(`${date}T00:00:00Z`));
-}
-
-export function categoryId(category: ResourceCategory) {
-  return category.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 }

@@ -5,6 +5,7 @@ slug: "proof-of-delivery-vs-bill-of-lading"
 publishedAt: "2026-09-30"
 updatedAt: "2026-09-30"
 category: "Trucking Paperwork"
+region: "US"
 tags:
   - proof of delivery
   - bill of lading

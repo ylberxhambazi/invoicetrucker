@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
 import ResourceArticlePage, {
@@ -10,6 +10,7 @@ import { GET as getRss } from "@/app/rss.xml/route";
 import sitemap from "@/app/sitemap";
 import {
   getPublishedResources,
+  getRelatedResources,
   isPublishedResource,
   parseResourceSource,
 } from "@/lib/resources";
@@ -33,6 +34,40 @@ describe("resource content system", () => {
         name: "What Should a Trucking Invoice Include?",
       }),
     ).toHaveAttribute("href", `/resources/${articleSlug}`);
+  });
+
+  it("filters the existing resources by region without changing article links", () => {
+    render(<ResourcesPage />);
+
+    fireEvent.click(
+      screen.getByRole("button", { name: "EU Freight" }),
+    );
+
+    expect(
+      screen.getByRole("link", {
+        name: "VAT on Freight Transport Invoices in the EU: B2B, Reverse Charge and Common Exceptions",
+      }),
+    ).toHaveAttribute(
+      "href",
+      "/resources/vat-on-freight-transport-invoices-eu",
+    );
+    expect(
+      screen.queryByRole("link", {
+        name: "What Should a Trucking Invoice Include?",
+      }),
+    ).not.toBeInTheDocument();
+
+    fireEvent.click(
+      screen.getByRole("button", { name: "US Trucking" }),
+    );
+    expect(
+      screen.getByRole("link", {
+        name: "What Should a Trucking Invoice Include?",
+      }),
+    ).toHaveAttribute("href", `/resources/${articleSlug}`);
+
+    fireEvent.click(screen.getByRole("button", { name: "General" }));
+    expect(screen.getByText("No resources in this region yet.")).toBeVisible();
   });
 
   it("renders the sample article with editorial elements", async () => {
@@ -96,7 +131,40 @@ Draft body content.
 `);
 
     expect(isPublishedResource(draft)).toBe(false);
+    expect(draft.region).toBe("Global");
     expect(generateStaticParams()).not.toContainEqual({ slug: "draft-guide" });
+  });
+
+  it("parses valid regions and rejects invalid region values clearly", () => {
+    const source = (region: string) => `---
+title: "Regional guide"
+description: "A region parsing test."
+slug: "regional-guide"
+publishedAt: "2026-09-14"
+category: "Guides"
+region: "${region}"
+tags:
+  - regional
+author: "InvoiceTrucker"
+draft: false
+---
+
+Regional body content.
+`;
+
+    expect(parseResourceSource(source("US")).region).toBe("US");
+    expect(() => parseResourceSource(source("North America"))).toThrow(
+      'Unknown resource region "North America". Expected US, EU, or Global.',
+    );
+  });
+
+  it("uses region as a tie-breaker for related resources", () => {
+    const article = getPublishedResources().find(
+      ({ slug }) => slug === "vat-on-freight-transport-invoices-eu",
+    );
+
+    expect(article).toBeDefined();
+    expect(getRelatedResources(article!, 1)[0]?.region).toBe("EU");
   });
 
   it("adds the published article to the sitemap and RSS feed", async () => {
@@ -117,5 +185,29 @@ Draft body content.
     );
     expect(feed).toContain("What Should a Trucking Invoice Include?");
     expect(feed).toContain(`/resources/${articleSlug}`);
+    expect(feed).not.toContain("/resources/us/");
+    expect(feed).not.toContain("/resources/eu/");
+  });
+
+  it("keeps article and breadcrumb JSON-LD on the existing resource route", async () => {
+    const { container } = render(
+      await ResourceArticlePage({
+        params: Promise.resolve({ slug: articleSlug }),
+      }),
+    );
+    const schemas = Array.from(
+      container.querySelectorAll('script[type="application/ld+json"]'),
+      (script) => JSON.parse(script.textContent ?? "{}"),
+    );
+
+    expect(schemas).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          "@type": "BlogPosting",
+          url: expect.stringContaining(`/resources/${articleSlug}`),
+        }),
+        expect.objectContaining({ "@type": "BreadcrumbList" }),
+      ]),
+    );
   });
 });

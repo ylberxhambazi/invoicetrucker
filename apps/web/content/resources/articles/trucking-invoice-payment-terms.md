@@ -5,6 +5,7 @@ slug: "trucking-invoice-payment-terms"
 publishedAt: "2026-10-15"
 updatedAt: "2026-10-15"
 category: "Trucking Invoicing"
+region: "US"
 tags:
   - trucking invoice payment terms
   - net 30 trucking
