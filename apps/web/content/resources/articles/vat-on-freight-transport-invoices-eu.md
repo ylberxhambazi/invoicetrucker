@@ -1,5 +1,5 @@
 ---
-title: "VAT on Freight Transport Invoices in the EU: B2B, Reverse Charge and Common Exceptions"
+title: "VAT on Freight Transport Invoices in the EU (Reverse Charge Explained)"
 description: "A practical guide to VAT on freight transport invoices in the EU, including B2B place-of-supply rules, reverse charge wording, common exceptions, and what transport companies should verify before invoicing."
 slug: "vat-on-freight-transport-invoices-eu"
 publishedAt: "2026-11-12"
@@ -16,7 +16,7 @@ author: "InvoiceTrucker"
 draft: true
 ---
 
-# VAT on Freight Transport Invoices in the EU: B2B, Reverse Charge and Common Exceptions
+# VAT on Freight Transport Invoices in the EU (Reverse Charge Explained)
 
 VAT on a freight transport invoice can look simple until the carrier and customer are established in different countries.
 

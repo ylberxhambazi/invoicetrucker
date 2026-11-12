@@ -211,8 +211,12 @@ export function getResourceBySlug(slug: string) {
   return getPublishedResources().find((article) => article.slug === slug);
 }
 
-export function getRelatedResources(current: ResourceArticle, limit = 3) {
-  return getPublishedResources()
+export function getRelatedResources(
+  current: ResourceArticle,
+  limit = 3,
+  candidates: ResourceArticle[] = getPublishedResources(),
+) {
+  return candidates
     .filter((article) => article.slug !== current.slug)
     .map((article) => ({
       article,

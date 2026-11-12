@@ -8,14 +8,62 @@ import ResourceArticlePage, {
 import ResourcesPage from "@/app/resources/page";
 import { GET as getRss } from "@/app/rss.xml/route";
 import sitemap from "@/app/sitemap";
+import { ResourceBrowser } from "@/components/resource-browser";
+import type { ResourceRegion, ResourceSummary } from "@/lib/resource-model";
 import {
   getPublishedResources,
   getRelatedResources,
   isPublishedResource,
   parseResourceSource,
+  resourceCategories,
 } from "@/lib/resources";
 
 const articleSlug = "what-should-a-trucking-invoice-include";
+const euDraftSlugs = [
+  "vat-on-freight-transport-invoices-eu",
+  "transport-invoice-requirements-eu",
+] as const;
+
+function resourceSummary(
+  overrides: Pick<ResourceSummary, "region" | "slug" | "title">,
+): ResourceSummary {
+  return {
+    author: "InvoiceTrucker",
+    category: "Guides",
+    description: "Test resource summary.",
+    draft: false,
+    publishedAt: "2026-09-14",
+    readingTime: 2,
+    tags: ["regional"],
+    ...overrides,
+  };
+}
+
+function regionalArticle({
+  publishedAt,
+  region,
+  slug,
+}: {
+  publishedAt: string;
+  region: ResourceRegion;
+  slug: string;
+}) {
+  return parseResourceSource(`---
+title: "${slug}"
+description: "Explicit related-resource fixture."
+slug: "${slug}"
+publishedAt: "${publishedAt}"
+category: "Guides"
+region: "${region}"
+tags:
+  - shared-tag
+author: "InvoiceTrucker"
+draft: false
+---
+
+Related-resource fixture body.
+`);
+}
 
 describe("resource content system", () => {
   it("loads the repository article and renders the resources hub", () => {
@@ -36,38 +84,52 @@ describe("resource content system", () => {
     ).toHaveAttribute("href", `/resources/${articleSlug}`);
   });
 
-  it("filters the existing resources by region without changing article links", () => {
-    render(<ResourcesPage />);
+  it("filters published resource fixtures by region without changing article links", () => {
+    const articles = [
+      resourceSummary({
+        region: "US",
+        slug: "published-us-guide",
+        title: "Published US fixture",
+      }),
+      resourceSummary({
+        region: "EU",
+        slug: "vat-on-freight-transport-invoices-eu",
+        title: "Published EU fixture",
+      }),
+      resourceSummary({
+        region: "Global",
+        slug: "published-general-guide",
+        title: "Published general fixture",
+      }),
+    ];
+    const { container } = render(
+      <ResourceBrowser articles={articles} categories={resourceCategories} />,
+    );
 
     fireEvent.click(
       screen.getByRole("button", { name: "EU Freight" }),
     );
 
     expect(
-      screen.getByRole("link", {
-        name: "VAT on Freight Transport Invoices in the EU: B2B, Reverse Charge and Common Exceptions",
-      }),
-    ).toHaveAttribute(
-      "href",
-      "/resources/vat-on-freight-transport-invoices-eu",
-    );
+      container.querySelector(
+        'a[href="/resources/vat-on-freight-transport-invoices-eu"]',
+      ),
+    ).toBeInTheDocument();
     expect(
-      screen.queryByRole("link", {
-        name: "What Should a Trucking Invoice Include?",
-      }),
+      container.querySelector('a[href="/resources/published-us-guide"]'),
     ).not.toBeInTheDocument();
 
     fireEvent.click(
       screen.getByRole("button", { name: "US Trucking" }),
     );
     expect(
-      screen.getByRole("link", {
-        name: "What Should a Trucking Invoice Include?",
-      }),
-    ).toHaveAttribute("href", `/resources/${articleSlug}`);
+      container.querySelector('a[href="/resources/published-us-guide"]'),
+    ).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole("button", { name: "General" }));
-    expect(screen.getByText("No resources in this region yet.")).toBeVisible();
+    expect(
+      container.querySelector('a[href="/resources/published-general-guide"]'),
+    ).toBeInTheDocument();
   });
 
   it("renders the sample article with editorial elements", async () => {
@@ -159,12 +221,26 @@ Regional body content.
   });
 
   it("uses region as a tie-breaker for related resources", () => {
-    const article = getPublishedResources().find(
-      ({ slug }) => slug === "vat-on-freight-transport-invoices-eu",
-    );
+    const current = regionalArticle({
+      publishedAt: "2026-09-14",
+      region: "US",
+      slug: "current-guide",
+    });
+    const newerCrossRegion = regionalArticle({
+      publishedAt: "2026-09-16",
+      region: "EU",
+      slug: "newer-cross-region-guide",
+    });
+    const olderSameRegion = regionalArticle({
+      publishedAt: "2026-09-15",
+      region: "US",
+      slug: "older-same-region-guide",
+    });
 
-    expect(article).toBeDefined();
-    expect(getRelatedResources(article!, 1)[0]?.region).toBe("EU");
+    expect(
+      getRelatedResources(current, 1, [newerCrossRegion, olderSameRegion])[0]
+        ?.slug,
+    ).toBe("older-same-region-guide");
   });
 
   it("adds the published article to the sitemap and RSS feed", async () => {
@@ -187,6 +263,17 @@ Regional body content.
     expect(feed).toContain(`/resources/${articleSlug}`);
     expect(feed).not.toContain("/resources/us/");
     expect(feed).not.toContain("/resources/eu/");
+
+    const publishedSlugs = getPublishedResources().map(({ slug }) => slug);
+    const staticSlugs = generateStaticParams().map(({ slug }) => slug);
+    const sitemapUrls = sitemap().map(({ url }) => url);
+
+    for (const slug of euDraftSlugs) {
+      expect(publishedSlugs).not.toContain(slug);
+      expect(staticSlugs).not.toContain(slug);
+      expect(sitemapUrls).not.toContainEqual(expect.stringContaining(slug));
+      expect(feed).not.toContain(`/resources/${slug}`);
+    }
   });
 
   it("keeps article and breadcrumb JSON-LD on the existing resource route", async () => {
